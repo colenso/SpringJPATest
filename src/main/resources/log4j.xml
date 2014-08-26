@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+<log4j:configuration>
+    <appender name="InfoFileAppender" class="org.apache.log4j.rolling.RollingFileAppender">
+        <rollingPolicy class="org.apache.log4j.rolling.TimeBasedRollingPolicy">
+            <param name="FileNamePattern" value="${user.home}/Logs/TestApp/Info_%d{dd-MM-yyyy}.log" />
+        </rollingPolicy>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d{HH:mm:ss} [sessionId: %X{sessionId}][%C] %M L: %L - %m%n" />
+        </layout>
+        <filter class="org.apache.log4j.varia.LevelRangeFilter">
+            <param name="levelMin" value="INFO" />
+            <param name="levelMax" value="INFO" />
+        </filter>
+    </appender>
+
+    <appender name="ErrorFileAppender" class="org.apache.log4j.rolling.RollingFileAppender">
+        <rollingPolicy class="org.apache.log4j.rolling.TimeBasedRollingPolicy">
+            <param name="FileNamePattern" value="${user.home}/Logs/TestApp/Error_%d{dd-MM-yyyy}.log" />
+        </rollingPolicy>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d{HH:mm:ss} [%-5p][sessionId: %X{sessionId}][%C] %M L: %L - %m%n" />
+        </layout>
+        <filter class="org.apache.log4j.varia.LevelRangeFilter">
+            <param name="levelMin" value="WARN" />
+            <param name="levelMax" value="FATAL" />
+        </filter>
+    </appender>
+    
+    <logger name="org.hibernate.SQL">   
+        <level value="DEBUG" />    
+        <appender-ref ref="InfoFileAppender" />
+    </logger>
+
+    <logger name="org.hibernate.type" >
+        <level value="TRACE" />
+        <appender-ref ref="InfoFileAppender" />
+    </logger>
+
+    <root>
+        <level value="INFO" />
+        <appender-ref ref="InfoFileAppender" />
+        <appender-ref ref="ErrorFileAppender" />
+    </root>
+</log4j:configuration>
