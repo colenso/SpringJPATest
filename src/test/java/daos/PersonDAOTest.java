@@ -34,5 +34,18 @@ public class PersonDAOTest {
         assertNotNull(result);
         assertTrue("Colenso".equals(result.getName()));
     }
+    
+    
+     @Test
+    public void testAddDummyPerson() {
+        logger.info("testAddDummyPerson");
+        String name = "Colenso";
+        Person dummy=new Person();
+        dummy.setName(name);
+        PersonDAO instance = new PersonDAO();
+        instance.add(dummy);
+        assertNotNull(result);
+        assertTrue("Colenso".equals(result.getName()));
+    }
 
 }
